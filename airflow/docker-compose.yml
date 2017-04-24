@@ -1,0 +1,23 @@
+version: '2'
+services:
+  postgres:
+    image: kiasaki/alpine-postgres
+    container_name: compose_postgres
+    environment:
+        - POSTGRES_USER=airflow
+        - POSTGRES_PASSWORD=airflow
+        - POSTGRES_DB=airflow
+  airflow:
+      build: .
+      restart: always
+      depends_on:
+          - postgres
+      environment:
+          - LOAD_EX=y
+          - EXECUTOR=Local
+      # volumes:
+          # - ~/github/docker-airflow/dags:/usr/local/airflow/dags
+      ports:
+          - "8080:8080"
+      command: entrypoint.sh webserver
+      #command: /bin/bash

@@ -36,11 +36,14 @@ RUN pip install airflow[crypto,celery,postgres,hive,s3,jdbc]==$AIRFLOW_VERSION \
 
 RUN apk update && apk add --no-cache bash bash-completion
 RUN adduser -s /bin/bash -h ${AIRFLOW_HOME} -D airflow
-RUN apk del .build-deps
+#RUN apk del .build-deps
 
 RUN mkdir /workd
 RUN chown -R airflow: /workd
 RUN chown -R airflow: ${AIRFLOW_HOME}
+COPY mnt/airflow.cfg ${AIRFLOW_HOME}
+COPY mnt/entrypoint.sh /usr/bin/.
+RUN chmod +x /usr/bin/entrypoint.sh
 
 EXPOSE 8080  5555 8793
 
