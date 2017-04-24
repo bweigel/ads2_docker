@@ -4,13 +4,13 @@ ARG AIRFLOW_VERSION=1.8.0
 ARG AIRFLOW_HOME=/usr/local/airflow
 
 RUN apk add --no-cache --virtual .build-deps \
+        bash gcc libxml2-dev libxslt-dev linux-headers musl-dev \
         python-dev \
         libffi-dev \
         openssl-dev \
         postgresql-dev \
         krb5-dev \
         libgsasl-dev \
-        bash gcc libxml2-dev libxslt-dev linux-headers musl-dev \
         build-base \
         git
 
@@ -38,11 +38,13 @@ RUN apk update && apk add --no-cache bash bash-completion
 RUN adduser -s /bin/bash -h ${AIRFLOW_HOME} -D airflow
 #RUN apk del .build-deps
 
-RUN mkdir /workd
-RUN chown -R airflow: /workd
-RUN chown -R airflow: ${AIRFLOW_HOME}
-COPY mnt/airflow.cfg ${AIRFLOW_HOME}
+COPY mnt/airflow.cfg ${AIRFLOW_HOME}/.
 COPY mnt/entrypoint.sh /usr/bin/.
+
+RUN mkdir /workd
+RUN chown -R airflow /workd
+RUN chown -R airflow ${AIRFLOW_HOME}
+
 RUN chmod +x /usr/bin/entrypoint.sh
 
 EXPOSE 8080  5555 8793
