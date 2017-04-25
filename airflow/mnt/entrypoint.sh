@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 
-: {AIRFLOW_HOME:="/usr/local/airflow"}
+: ${AIRFLOW_HOME:="/usr/local/airflow"}
+#sed -i "s/airflow_home = .*/airflow_home = $(echo $AIRFLOW_HOME | sed 's/\//\\\//g')/" ${AIRFLOW_HOME}/airflow.cfg
+
 CMD="airflow"
 TRY_LOOP="20"
 
