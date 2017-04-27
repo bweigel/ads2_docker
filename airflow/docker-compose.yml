@@ -7,6 +7,8 @@ services:
         - POSTGRES_USER=airflow
         - POSTGRES_PASSWORD=airflow
         - POSTGRES_DB=airflow
+    post:
+      - "5432:5432"
   airflow:
       build: .
       user: airflow
@@ -15,10 +17,11 @@ services:
       depends_on:
           - postgres
       environment:
-          - LOAD_EX=y
+          - LOAD_EX=n
           - EXECUTOR=Local
-      # volumes:
-          # - ~/github/docker-airflow/dags:/usr/local/airflow/dags
+      volumes:
+          - ./dags:/usr/local/airflow/dags
+          - ~/.aws:/usr/local/airflow/.aws
       ports:
           - "8080:8080"
       command: entrypoint.sh webserver
