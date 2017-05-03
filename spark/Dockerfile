@@ -8,13 +8,10 @@ RUN apk add --update unzip wget curl docker jq coreutils python3
 RUN ln -s /usr/bin/python3 /usr/bin/python
 
 ENV SPARK_VERSION=$spark_version 
-ENV SCALA_VERSION=$scala_version
 ENV HADOOP_VERSION=$hadoop_version
 
-#ADD download-scala.sh /tmp/.
 ADD download_spark.sh /tmp/.
 ADD download_hadoop.sh /tmp/.
-#ADD install_anaconda.sh /tmp/.
 ADD download_all.sh /tmp/.
 
 RUN chmod a+x /tmp/download_all.sh && sync && /tmp/download_all.sh 
