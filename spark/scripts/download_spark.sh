@@ -1,8 +1,9 @@
 #!/bin/sh
 
-MIRROR=$(curl --stderr /dev/null https://www.apache.org/dyn/closer.cgi\?as_json\=1 | jq -r '.preferred')
+#MIRROR=$(curl --stderr /dev/null https://www.apache.org/dyn/closer.cgi\?as_json\=1 | jq -r '.preferred')
+MIRROR="https://d3kbcqa49mib13.cloudfront.net"
 FILENAME="spark-${SPARK_VERSION}-bin-without-hadoop.tgz"
-URL="${MIRROR}spark/spark-${SPARK_VERSION}/${FILENAME}"
+URL="${MIRROR}/${FILENAME}"
 OUTPUT="/tmp/${FILENAME}"
 
 echo "downloading ${URL}..."

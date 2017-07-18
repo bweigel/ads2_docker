@@ -1,3 +1,6 @@
 #!/usr/bin/env bash
 
-docker build -t bweigel/spark:latest  .
+IMAGE="spark"
+
+docker images | grep $IMAGE | awk '{print $3}' | xargs docker rmi -f
+docker build -t bweigel/${IMAGE}:latest  .

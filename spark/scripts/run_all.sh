@@ -6,7 +6,7 @@ sync
 
 for script in $(find $DIRNAME -name '*\.sh'); do
     if [[ $script != $0 ]]; then
-	echo "running $script ..."
+	echo "running script \"$script\" ..."
 	${script}
     fi
 done
