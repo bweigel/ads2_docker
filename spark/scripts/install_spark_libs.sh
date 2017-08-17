@@ -6,7 +6,8 @@ pushd .
 
 cd /opt
 git clone https://github.com/graphframes/graphframes.git
-mv graphframes/python /opt/spark_libs/.
+mkdir -p /opt/spark_libs/graphframes
+mv graphframes/python /opt/spark_libs/graphframes/.
 rm -rf graphframes
 
 cd /opt/spark_libs
